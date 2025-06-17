@@ -8,15 +8,18 @@ import User from "../models/user.model.js";
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await Auths.findOne({
+  const auth = await Auths.findOne({
     $or: [{ email }, { username: email }],
   });
-  if (!user) throw new ResponseError("User does not exist", 401);
+  if (!auth) throw new ResponseError("User does not exist", 401);
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  const isPasswordValid = await bcrypt.compare(password, auth.password);
   if (!isPasswordValid) throw new ResponseError("Invalid credentials", 401);
 
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+  const user = await User.findOne({ auth: auth._id });
+  if (!user) throw new ResponseError("User not found", 404);
+
+  const token = jwt.sign({ authId: auth._id, userId: user._id  }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 

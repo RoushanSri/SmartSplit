@@ -23,12 +23,7 @@ const elementSchema = new mongoose.Schema({
       contribution: {
         type: Number,
         required: true,
-      },
-      status: {
-        type: String,
-        enum: ["pending", "completed"],
-        default: "pending"
-      },
+      }
     },
   ],
 });

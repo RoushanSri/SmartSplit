@@ -5,7 +5,7 @@ export const getProfile = asyncHandler(async(req, res)=>{
     
     const user = await User.findOne({auth: req.userId}).populate("auth", "email username");
     if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        throw new ResponseError(404, "User not found");
     }
     const data = {
         _id: user._id,
