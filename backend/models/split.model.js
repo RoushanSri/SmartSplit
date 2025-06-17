@@ -1,5 +1,38 @@
 import mongoose from "mongoose";
 
+const elementSchema = new mongoose.Schema({
+  itemName: {
+    type: String,
+    required: true,
+  },
+  itemPrice: {
+    type: Number,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    default: 1,
+  },
+  participants: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      contribution: {
+        type: Number,
+        required: true,
+      },
+      status: {
+        type: String,
+        enum: ["pending", "completed"],
+        default: "pending"
+      },
+    },
+  ],
+});
+
 const splitSchema = new mongoose.Schema(
   {
     user: {
@@ -16,10 +49,7 @@ const splitSchema = new mongoose.Schema(
       default: "",
     },
     items: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Element",
-      },
+      elementSchema
     ],
     participants: [
       {
@@ -38,8 +68,7 @@ const splitSchema = new mongoose.Schema(
         status: {
           type: String,
           enum: ["pending", "completed"],
-          default: "pending",
-          required: true,
+          default: "pending"
         },
       },
     ],
