@@ -2,6 +2,36 @@ import asyncHandler from "express-async-handler";
 import ResponseError from "../types/ResponseError.js";
 import Split from "../models/split.model.js";
 import User from "../models/user.model.js";
+import fs from 'fs/promises';
+import sharp from 'sharp';
+import Tesseract from 'tesseract.js';
+import model from "../config/gemini.js";
+
+async function callGeminiAPI(receiptText) {
+
+  try{
+    const prompt = `
+      Extract item name, quantity, and price from this receipt.
+      Format response strictly as a JSON array: 
+      [{"item":"Item Name","qty":2,"price":50},...]
+      Text:
+      ${receiptText}
+    `;
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    let text = await response.text();
+
+    text = text.replace(/```json|```/g, '').trim();
+
+    const parsedJSON = JSON.parse(text);
+
+    return parsedJSON;
+    }catch (error) {
+        console.error("Error calling Gemini API:", error);
+        throw new ResponseError(500, "Failed to process receipt with Gemini API");
+    }
+}
 
 export const splitBill = asyncHandler(async(req, res)=>{
     const { event, participants, owedAmount, ownedAmount, billImage, items, description, amount } = req.body;
@@ -76,4 +106,28 @@ export const editBill = asyncHandler(async(req, res)=>{
     }
 
     res.status(200).json({ success: true, message: "Bill split updated successfully", data: updatedSplit });
+})
+
+export const extractText = asyncHandler(async(req, res)=>{
+    const inputPath = req.file.path;
+  const processedPath = inputPath + '_processed.png';
+
+  try {
+    await sharp(inputPath)
+      .grayscale()
+      .normalize()
+      .resize({ width: 1000 })
+      .toFile(processedPath);
+
+    const { data: { text } } = await Tesseract.recognize(processedPath, 'eng');
+
+        await fs.unlink(processedPath);
+
+        const response = await callGeminiAPI(text);
+
+    res.status(200).json({ success: true, message: "Text extracted successfully", data: response });
+  } catch (error) {
+    console.error("Error processing image:", error);
+    res.status(500).json({ success: false, message: "Failed to extract text from image" });
+  }
 })
