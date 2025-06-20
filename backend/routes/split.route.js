@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.post('/addBill',isAuthenticated, splitBill);
 router.put('/editBill', isAuthenticated, editBill);
-router.post('/extract', upload.single('bill'), extractText);
+router.post('/extract', isAuthenticated, upload.single('bill'), extractText);
 
 export default router

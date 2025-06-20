@@ -11,12 +11,21 @@ async function callGeminiAPI(receiptText) {
 
   try{
     const prompt = `
-      Extract item name, quantity, and price from this receipt.
-      Format response strictly as a JSON array: 
-      [{"item":"Item Name","qty":2,"price":50},...]
-      Text:
-      ${receiptText}
-    `;
+  Extract item name, quantity, price and amount from this receipt.
+
+  Rules:
+  - Ignore any extra charges like tax, service charge, delivery fee, tips, etc.
+  - If a discount percentage is mentioned, apply it directly to each item's price.
+  - If a discount amount is mentioned, calculate the discount percentage based on the sum of item prices and apply that percentage to each item.
+  - Ignore any item that has price as 0.
+  - Round final prices to two decimal places.
+
+  Format the response strictly as a JSON array:
+  [{"item":"Item Name","qty":2,"price":50.00, "amount": 100.00},...]
+
+  Text:
+  ${receiptText}
+`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;

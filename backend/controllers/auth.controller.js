@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Auths from "../models/auth.model.js";
 import User from "../models/user.model.js";
+import nodemailer from "nodemailer";
 
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -53,6 +54,43 @@ export const register = asyncHandler(async (req, res) => {
     throw new ResponseError("User already exists", 409);
   }
 
+  const token = jwt.sign({ email, password, username }, process.env.JWT_SECRET, { expiresIn: '5m' });
+
+  const verificationLink = `http://localhost:8080/api/v1/auth/verify-email?token=${token}`;
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASS,
+    },
+  });
+
+  await transporter.sendMail({
+    from: process.env.EMAIL,
+    to: email,
+    subject: 'Verify your email',
+    html: `<p>Click the link to verify:</p><a href="${verificationLink}">${verificationLink}</a>`,
+  });
+
+  res
+    .status(200)
+    .json({ success: true, message: "Email sent successful"});
+});
+
+export const verifyEmail = asyncHandler(async (req, res) => {
+  const { token } = req.query;
+
+  if (!token) {
+    throw new ResponseError("Token is required", 400);
+  }
+
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  if (!decoded) {
+    throw new ResponseError("Invalid token", 401);
+  }
+  const { email, username, password } = decoded;
+
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const newUser = await Auths.create({
@@ -69,18 +107,5 @@ export const register = asyncHandler(async (req, res) => {
     pendingOwedAmount: 0,
   });
 
-  const token = jwt.sign(
-    { authId: newUser._id, userId: user._id },
-    process.env.JWT_SECRET,
-    { expiresIn: "1h" }
-  );
-
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-  });
-
-  res
-    .status(201)
-    .json({ success: true, message: "Registration successful", data: token });
-});
+  res.json({ success: true, message: "Email verified and User registered successfully" });
+})
