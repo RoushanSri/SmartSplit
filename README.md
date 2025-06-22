@@ -45,6 +45,9 @@ Create a `.env` file in the `backend` directory with the following variables:
 MONGO_URI=""
 PORT=""
 JWT_SECRET=""
+EMAIL=""
+EMAIL_PASS=""
+GEMINI_API_KEY=""
 ```
 
 Replace the values with your actual configuration.
