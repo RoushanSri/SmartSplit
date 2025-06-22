@@ -1,31 +1,35 @@
-import { useState } from "react";
-import axios from 'axios';
+import React from "react";
+import { Route, Routes } from "react-router";
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
 
-function App() {
-  const [image, setImage] = useState(null);
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
-  };
+import { ToastContainer } from "react-toastify";
 
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append('bill', image);
-
-    try {
-      const res = await axios.post('http://localhost:8080/api/v1/split/extract', formData);
-      console.log(res.data);
-      
-    } catch (err) {
-      console.error('Upload failed:', err);
-    }
-  };
-
+const App = () => {
   return (
-    <div className="w-full h-screen bg-zinc-500 text-white flex justify-center items-center">
-      <input type="file" accept="image/*" onChange={handleFileChange} className="border-black p-3 border-2"/>
-      <button onClick={handleUpload} className="bg-black rounded-2xl p-3">Upload Bill</button>
-    </div>
-  )
-}
+    <>
 
-export default App
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+      </Routes>
+    </>
+  );
+};
+
+export default App;

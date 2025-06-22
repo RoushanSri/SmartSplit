@@ -1,0 +1,43 @@
+import React from "react";
+
+const AboutUs = () => {
+  return (
+    <section id="about" className="py-16 bg-white">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">
+          About SmartSplit
+        </h2>
+        <div className="text-lg text-gray-600 leading-relaxed space-y-6">
+          <p>
+            While Splitwise is excellent for ongoing expense tracking between
+            roommates and regular groups,
+            <strong className="text-gray-900">
+              {" "}
+              SmartSplit is specifically designed for one-off group events {" "}
+            </strong>
+            and quick restaurant or grocery bill splitting.
+          </p>
+          <p>
+            Our focus is on{" "}
+            <strong className="text-gray-900">speed and simplicity</strong>.
+            Instead of manually entering each item, SmartSplit uses advanced OCR
+            technology to instantly extract all items from your receipt. You can
+            assign items to people with just a few taps and settle up
+            immediately.
+          </p>
+          <p>
+            Perfect for dinner with friends, group grocery shopping, or any
+            situation where you need to
+            <strong className="text-gray-900">
+              {" "}
+              split a bill quickly and fairly
+            </strong>{" "}
+            without the overhead of ongoing expense management.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default AboutUs;
