@@ -7,11 +7,11 @@ const AboutUs = () => {
         <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">
           About SmartSplit
         </h2>
-        <div className="text-lg text-gray-600 leading-relaxed space-y-6">
+        <div className="text-lg text-gray-900 leading-relaxed space-y-6">
           <p>
             While Splitwise is excellent for ongoing expense tracking between
             roommates and regular groups,
-            <strong className="text-gray-900">
+            <strong className="text-[#181c5d]">
               {" "}
               SmartSplit is specifically designed for one-off group events {" "}
             </strong>
@@ -19,7 +19,7 @@ const AboutUs = () => {
           </p>
           <p>
             Our focus is on{" "}
-            <strong className="text-gray-900">speed and simplicity</strong>.
+            <strong className="text-[#181c5d]">speed and simplicity</strong>.
             Instead of manually entering each item, SmartSplit uses advanced OCR
             technology to instantly extract all items from your receipt. You can
             assign items to people with just a few taps and settle up
@@ -28,7 +28,7 @@ const AboutUs = () => {
           <p>
             Perfect for dinner with friends, group grocery shopping, or any
             situation where you need to
-            <strong className="text-gray-900">
+            <strong className="text-[#181c5d]">
               {" "}
               split a bill quickly and fairly
             </strong>{" "}
