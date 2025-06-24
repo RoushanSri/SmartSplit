@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaLock, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from "react-hot-toast";
+import { loginUser } from "../redux/slice/authSlice.js";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -17,7 +24,21 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login attempt:", { email, password });
+
+    const toastId = toast.loading("Logging in...");
+
+    dispatch(loginUser({ email, password }))
+      .then((response) => {
+        if (response.payload.success) {
+          toast.success("Login successful!", { id: toastId });
+          navigate("/u/dashboard");
+        } else {
+          toast.error(response.payload.message || "Login failed", { id: toastId });
+        }
+      })
+      .catch((error) => {
+        console.error("An error occurred during login:", error);
+      });
   };
 
   const toggleShowPassword = () => {

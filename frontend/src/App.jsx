@@ -5,7 +5,13 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 
 import { ToastContainer } from "react-toastify";
-import Dashboard from "./pages/Dashboard";
+import AuthProtector from "./components/AuthProtector";
+import MainLayout from "./pages/MainLayout";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from "./pages/ContactUs";
+import SplitBill from "./pages/SplitBill";
+import PastEvents from "./pages/PastEvents";
+import DashHistory from "./components/DashHistory";
 
 const App = () => {
   return (
@@ -28,7 +34,16 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/u/" element={<AuthProtector>
+          <MainLayout />
+        </AuthProtector>} >
+        <Route path="dashboard" element={<DashHistory/>}/>
+        <Route path="aboutUs" element={<AboutUs/>} />
+        <Route path="contactUs" element={<ContactUs/>} />
+        <Route path="splitBill" element={<SplitBill/>} />
+        <Route path="pastEvents" element={<PastEvents/>} />
+        </Route>
       </Routes>
     </>
   );
