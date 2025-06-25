@@ -80,7 +80,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(logoutUser.fulfilled, (state) => {
-        localStorage.removeItem("token");
         state.loading = false;
         state.token = null;
         state.isregistered = false;

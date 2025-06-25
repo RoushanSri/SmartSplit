@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaEnvelope, FaLock, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from "react-hot-toast";
 import { loginUser } from "../redux/slice/authSlice.js";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const rememberMe = useRef(null);
 
   const dispatch = useDispatch()
 
@@ -31,6 +32,9 @@ const Login = () => {
       .then((response) => {
         if (response.payload.success) {
           toast.success("Login successful!", { id: toastId });
+          if (rememberMe.current.checked) {
+            localStorage.setItem("user", email);
+          }
           navigate("/u/dashboard");
         } else {
           toast.error(response.payload.message || "Login failed", { id: toastId });
@@ -44,6 +48,14 @@ const Login = () => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("user");
+    if (storedEmail) {
+      setEmail(storedEmail);
+      rememberMe.current.checked = true;
+    }
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 flex items-center justify-center p-4">
@@ -120,6 +132,7 @@ const Login = () => {
             <div className="flex items-center justify-between">
               <label className="flex items-center">
                 <input
+                  ref={rememberMe}
                   type="checkbox"
                   className="w-4 h-4 text-[#181c5d] bg-gray-100 border-gray-200 rounded focus:ring-[#181c5d] focus:ring-2"
                 />
