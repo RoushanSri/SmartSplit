@@ -1,15 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { PiArrowFatLinesDownFill, PiArrowFatLinesUpFill } from "react-icons/pi";
 import { FaCrown, FaPlus } from "react-icons/fa";
 import { MdPeopleAlt } from "react-icons/md";
 import avatar from "../assets/noImage.webp";
 import { CardContent, Typography, Grid } from "@mui/material";
+import { useSelector } from "react-redux";
 
 function DashData() {
+
+  const { profile } = useSelector((state) => state.profile);
+
+  const [profileData, setProfileData] = useState(profile);
+
+  useEffect(() => {
+    setProfileData(profile);
+  }, [profile]);
+
   return (
     <>
       <h1 className="text-white pl-12 text-4xl font-semibold">
-        Roushan Srivastav
+        {profileData?.username}
       </h1>
       <div className="flex gap-24 justify-center items-center p-12 py-8">
         <div style={{ flex: 1 }}>
@@ -18,7 +28,7 @@ function DashData() {
               <div className="bg-[#c2b2ec29] h-full text-white rounded-xl relative">
                 <CardContent>
                   <Typography variant="h6">Total Split Amount</Typography>
-                  <Typography variant="h4">₹1,234</Typography>
+                  <Typography variant="h4">₹{profileData?.totalSplitAmount}</Typography>
                 </CardContent>
                 <FaCrown
                   size={25}
@@ -32,7 +42,7 @@ function DashData() {
                 <CardContent>
                   <Typography variant="h6">Amount Owed By You</Typography>
                   <Typography variant="h4" sx={{ color: "red" }}>
-                    ₹87
+                    ₹{profileData?.pendingOwedAmount}
                   </Typography>
                 </CardContent>
                 <PiArrowFatLinesDownFill
@@ -47,7 +57,7 @@ function DashData() {
                 <CardContent>
                   <Typography variant="h6">Amount Owned to You</Typography>
                   <Typography variant="h4" sx={{ color: "lightgreen" }}>
-                    ₹12,345
+                    ₹{profileData?.pendingOwnedAmount}
                   </Typography>
                 </CardContent>
 

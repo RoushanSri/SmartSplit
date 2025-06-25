@@ -41,8 +41,8 @@ function SplitCard({split}) {
                   <div>
                     <p className="text-xs text-slate-500 mb-1">People</p>
                     <div className="flex">
-                      {split.people.map(() => (
-                        <div className="rounded-full overflow-hidden w-6 h-6">
+                      {split.people.map((idx) => (
+                        <div key={idx} className="rounded-full overflow-hidden w-6 h-6">
                           <img
                             src={avatar}
                             alt="avatar"
@@ -74,9 +74,9 @@ function SplitCard({split}) {
                       </span>
                     </div>
                   ))}
-                  <p className="text-xs text-slate-500">
+                  {split.moreItems!==0 && (<p className="text-xs text-slate-500">
                     +{split.moreItems} more items
-                  </p>
+                  </p>)}
                 </div>
     
                 {/* Action Button */}

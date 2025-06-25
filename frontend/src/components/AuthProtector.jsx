@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile } from '../redux/slice/profileSlice';
@@ -6,9 +6,11 @@ import { getProfile } from '../redux/slice/profileSlice';
 function AuthProtector({children}) {
 
     const navigate = useNavigate();
-    const {loading, token} = useSelector((state) => state.auth);
-    const {profile} = useSelector((state) => state.profile);
+    const {token} = useSelector((state) => state.auth);
+    const {profile, loading} = useSelector((state) => state.profile);
 
+    const isLoading = loading ;
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -19,13 +21,13 @@ function AuthProtector({children}) {
     })
 
     useEffect(() => {
-            if(!profile && token)
-                dispatch(getProfile())
-    }, [dispatch, profile, token]);
+        if(!profile )
+            dispatch(getProfile())
+    }, [ profile, token ]);
 
     return (
         <>
-            {loading ? <div className="loader">
+            {isLoading ? <div className="loader">
                 <div className="spinner-border text-primary" role="status">
                     <span className="visually-hidden">Loading...</span>
                 </div>
