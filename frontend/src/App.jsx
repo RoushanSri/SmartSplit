@@ -12,6 +12,7 @@ import ContactUs from "./pages/ContactUs";
 import SplitBill from "./pages/SplitBill";
 import PastEvents from "./pages/PastEvents";
 import DashHistory from "./components/DashHistory";
+import VerifyEmail from "./pages/VerifyEmail";
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/verify-email" element={<VerifyEmail/>}/>
 
         <Route path="/u/" element={<AuthProtector>
           <MainLayout />

@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { FaEnvelope, FaLock, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
+import { registerUser } from "../redux/slice/authSlice";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +33,33 @@ const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Signup attempt:", { name, email, password });
+    const toastId = toast.loading("Sending Verification Email...");
+    if (!name || !email || !password) {
+      toast.error("Please fill in all fields",{
+        id:toastId
+      });
+      return;
+    }
+     dispatch(registerUser({ username:name, email, password }))
+      .then((response) => {
+        if (response.payload.success) {
+          toast.success("Verification email sent successfully", {
+            id:toastId
+          });
+          navigate("/verify-email");
+        } else {
+          toast.error(
+            response.payload.message || "Failed to send verification email",{
+              id:toastId
+            }
+          );
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message || "An error occurred",{
+          id:toastId
+        });
+      });
   };
 
   return (

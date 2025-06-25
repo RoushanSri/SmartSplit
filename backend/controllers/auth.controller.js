@@ -107,5 +107,12 @@ export const verifyEmail = asyncHandler(async (req, res) => {
     pendingOwedAmount: 0,
   });
 
+  if (!newUser || !user) {
+    throw new ResponseError("User registration failed", 500);
+  }
+
+  const redirectUrl = `http://localhost:5173/login`;
+  res.redirect(redirectUrl);
+
   res.json({ success: true, message: "Email verified and User registered successfully" });
 })
