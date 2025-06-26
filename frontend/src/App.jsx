@@ -13,6 +13,7 @@ import SplitBill from "./pages/SplitBill";
 import PastEvents from "./pages/PastEvents";
 import DashHistory from "./components/DashHistory";
 import VerifyEmail from "./pages/VerifyEmail";
+import SplitDetail from "./pages/SplitDetail";
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
         <Route path="contactUs" element={<ContactUs/>} />
         <Route path="splitBill" element={<SplitBill/>} />
         <Route path="pastEvents" element={<PastEvents/>} />
+        <Route path="split/:id" element={<SplitDetail/>} />
         </Route>
       </Routes>
     </>

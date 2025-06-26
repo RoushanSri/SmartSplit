@@ -1,6 +1,7 @@
 import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import avatar from '../assets/noImage.webp'
+import { Link } from 'react-router-dom'
 
 function SplitCard({split}) {
   return (
@@ -80,10 +81,10 @@ function SplitCard({split}) {
                 </div>
     
                 {/* Action Button */}
-                <button className="w-full bg-slate-900 hover:bg-slate-800 cursor-pointer text-white py-3 px-4 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2">
+                <Link to={`/u/split/${split.id}`} className="w-full bg-slate-900 hover:bg-slate-800 cursor-pointer text-white py-3 px-4 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2">
                   <span>Split details</span>
                   <FaArrowRight className="h-4 w-4" />
-                </button>
+                </Link>
               </div>
   )
 }

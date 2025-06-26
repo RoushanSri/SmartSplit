@@ -140,3 +140,13 @@ export const extractText = asyncHandler(async(req, res)=>{
     res.status(500).json({ success: false, message: "Failed to extract text from image" });
   }
 })
+
+export const pastSplits = asyncHandler(async(req, res)=>{
+    const splits = await Split.find({ user: req.userId }).sort({ createdAt: -1 });
+
+    if (!splits || splits.length === 0) {
+        return res.status(404).json({ success: false, message: "No past splits found" });
+    }
+
+    res.status(200).json({ success: true, message: "Past splits retrieved successfully", data: splits });
+})
