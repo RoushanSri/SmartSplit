@@ -18,9 +18,9 @@ const PastEvents = () => {
         Event: split.event,
         status: split.status,
         statusColor:
-          split.status === "Completed"
+          split.status === "completed"
             ? "bg-green-100 text-green-800"
-            : split.status === "Pending"
+            : split.status === "pending"
             ? "bg-yellow-100 text-yellow-800"
             : "bg-red-100 text-red-800",
         date: new Date(split.createdAt).toLocaleDateString(),

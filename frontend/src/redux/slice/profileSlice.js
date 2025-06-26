@@ -18,12 +18,17 @@ export const getProfile = createAsyncThunk(
     }   
 );
 
-const profileSlice = createSlice({
-    name: 'profile',
-    initialState: {
+const initialState= {
         profile: null,
         loading: false,
         error: null,
+    }
+
+const profileSlice = createSlice({
+    name: 'profile',
+    initialState,
+    reducers: {
+        clearProfile:()=> initialState
     },
     extraReducers: (builder) => {
         builder
@@ -43,3 +48,4 @@ const profileSlice = createSlice({
 });
 
 export default profileSlice.reducer;
+export const { clearProfile } = profileSlice.actions;

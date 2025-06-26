@@ -9,6 +9,8 @@ import { MdSettings } from 'react-icons/md';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/slice/authSlice';
 import { toast } from 'react-hot-toast';
+import { clearProfile } from '../redux/slice/profileSlice';
+import { clearSplit } from '../redux/slice/splitSlice';
 
 function Header() {
 const [menuOpen, setMenuOpen] = useState(false);
@@ -42,6 +44,8 @@ const handleLogout = () => {
     dispatch(logoutUser())
         .then(() => {
             localStorage.removeItem("token");
+            dispatch(clearProfile());
+            dispatch(clearSplit());
             navigate("/login")
             toast.success("Logged out successfully", { id: toastId });
         })

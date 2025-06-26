@@ -150,3 +150,19 @@ export const pastSplits = asyncHandler(async(req, res)=>{
 
     res.status(200).json({ success: true, message: "Past splits retrieved successfully", data: splits });
 })
+
+export const getSplit = asyncHandler(async(req, res)=>{
+    const { id } = req.query;
+
+    if (!id) {
+        return res.status(400).json({ success: false, message: "Split ID is required" });
+    }
+
+    const split = await Split.findById(id);
+
+    if (!split) {
+        throw new ResponseError(404, "Bill split not found");
+    }
+
+    res.status(200).json({ success: true, message: "Bill split retrieved successfully", data: split });
+})

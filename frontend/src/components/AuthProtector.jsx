@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getProfile } from '../redux/slice/profileSlice';
+import { clearProfile, getProfile } from '../redux/slice/profileSlice';
+import { clearSplit } from '../redux/slice/splitSlice';
 
 function AuthProtector({children}) {
 
@@ -22,7 +23,15 @@ function AuthProtector({children}) {
 
     useEffect(() => {
         if(!profile )
-            dispatch(getProfile())
+            dispatch(getProfile()).then((res) => {
+                if (res.error) {
+                    localStorage.removeItem("token");
+                    dispatch(clearProfile());
+                    dispatch(clearSplit());
+                    navigate("/login");
+                }
+            });
+        
     }, [ profile, token ]);
 
     return (
