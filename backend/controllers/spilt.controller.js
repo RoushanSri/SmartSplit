@@ -89,10 +89,15 @@ export const editBill = asyncHandler(async(req, res)=>{
         return res.status(400).json({ success: false, message: "All fields are required" });
     } 
 
+    let status = "pending";
+    if (participants.every(participant => participant.status === "completed"))
+        status = "completed";
+
     const split = await Split.findByIdAndUpdate(splitId, {
         participants,
         owedAmount: owedAmount || 0,
-        ownedAmount: ownedAmount || 0
+        ownedAmount: ownedAmount || 0,
+        status
     });
 
     if(!split){
@@ -106,7 +111,7 @@ export const editBill = asyncHandler(async(req, res)=>{
     }
     user.pendingOwnedAmount += (ownedAmount || 0) - (split.ownedAmount || 0);
     user.pendingOwedAmount += (owedAmount || 0) - (split.owedAmount || 0);
-    await user.save();
+    user.save();
 
     const updatedSplit = await Split.findById(splitId);
 
