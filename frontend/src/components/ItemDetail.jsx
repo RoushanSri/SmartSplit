@@ -19,7 +19,7 @@ return (
                         {participant.name}
                     </span>
                     <span className="text-indigo-600 font-semibold bg-indigo-100 px-3 py-1 rounded-full">
-                        ₹{participant.contribution.toFixed(2)}
+                        ₹{participant.contribution}
                     </span>
                 </div>
             ))

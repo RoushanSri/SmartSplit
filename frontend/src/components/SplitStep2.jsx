@@ -28,13 +28,15 @@ function SplitStep2({setBillSplitStatus, formData, setFormData}) {
         const updatedParticipants = formData.participants.map(participant => ({
           ...participant,
           contri: participantShares[participant.id] || 0,
+          status:"pending",
           paid: 0
         }));
 
         const updatedFormData = {
             ...formData,
             items: updatedItems,
-            participants: updatedParticipants
+            participants: updatedParticipants,
+            status:"pending"
         };
         
         localStorage.setItem("formData", JSON.stringify(updatedFormData));
