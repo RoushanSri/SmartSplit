@@ -11,26 +11,26 @@ function ManualOptionBill({items, handleItemChange, handleAddItem, handleRemoveI
                                     type="text"
                                     placeholder="Item Name"
                                     className="border border-gray-300 rounded-lg px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-blue-200 col-span-4"
-                                    value={item.name}
-                                    onChange={e => handleItemChange(idx, "name", e.target.value)}
+                                    value={item.itemName}
+                                    onChange={e => handleItemChange(idx, "itemName", e.target.value)}
                                 />
                                 <input
                                     type="number"
                                     placeholder="Price"
                                     className="border border-gray-300 rounded-lg px-3 py-2 w-24 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                                    value={item.price}
+                                    value={item.itemPrice}
                                     min="0"
                                     step="0.01"
-                                    onChange={e => handleItemChange(idx, "price", e.target.value)}
+                                    onChange={e => handleItemChange(idx, "itemPrice", e.target.value)}
                                 />
                                 <input
                                     type="number"
                                     placeholder="Qty"
                                     className="border border-gray-300 rounded-lg px-3 py-2 w-16 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                                    value={item.qty}
+                                    value={item.quantity}
                                     min="1"
                                     step="1"
-                                    onChange={e => handleItemChange(idx, "qty", e.target.value)}
+                                    onChange={e => handleItemChange(idx, "quantity", e.target.value)}
                                 />
                                 <input
                                     type="number"

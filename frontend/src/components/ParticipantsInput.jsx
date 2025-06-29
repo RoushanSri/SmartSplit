@@ -1,15 +1,21 @@
 import React from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 function ParticipantsInput({participants, setParticipants}) {
 
-  const handleChange = (index, event) => {
+  const handleChange = (id, event) => {
     const newParticipants = [...participants];
-    newParticipants[index] = event.target.value;
+    const index = newParticipants.findIndex((p) => p.id === id);
+    if (index === -1) return; 
+    newParticipants[index] = {
+      ...newParticipants[index],
+      name: event.target.value.trim(),
+    };
     setParticipants(newParticipants);
   };
 
   const handleAdd = () => {
-    setParticipants([...participants, ""]);
+    setParticipants([...participants, {name: "", id:uuidv4() }]);
   };
 
   const handleRemove = (index) => {
@@ -18,7 +24,7 @@ function ParticipantsInput({participants, setParticipants}) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-xl p-8">
+    <div className="w-full max-w-2xl mx-auto bg-gradient-to-br from-blue-50 to-white rounded-2xl shadow-xl p-8 mt-5">
       <h2 className="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2">
         <svg
           className="w-7 h-7 text-blue-500"
@@ -40,8 +46,8 @@ function ParticipantsInput({participants, setParticipants}) {
         <div key={idx} className="flex items-center mb-4 group">
           <input
             type="text"
-            value={participant}
-            onChange={(e) => handleChange(idx, e)}
+            value={participant.name}
+            onChange={(e) => handleChange(participant.id, e)}
             required
             disabled={idx === 0}
             placeholder={`Participant ${idx + 1}`}

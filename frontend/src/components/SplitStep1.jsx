@@ -3,6 +3,7 @@ import UploadOptionBill from "./UploadOptionBill";
 import ManualOptionBill from "./ManualOptionBill";
 import ParticipantsInput from "./ParticipantsInput";
 import { useSelector } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
   const { profile } = useSelector((state) => state.profile);
@@ -11,15 +12,15 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
   const [mode, setMode] = useState(items?.length > 0 ? "manual" : "upload");
   const [loading, setLoading] = useState(false);
   const [participants, setParticipants] = useState(
-    formData?.participants || [profile?.name + "(You)"]
+    formData?.participants || [{id:uuidv4() ,name:profile?.name + "(You)"}]
   );
 
   const handleNext = () => {
     const incomplete = items.find(
       (item) =>
-        item.name === "" ||
-        item.price === "" ||
-        item.qty === "" ||
+        item.itemName === "" ||
+        item.itemPrice === "" ||
+        item.quantity === "" ||
         item.amount === ""
     );
     if (incomplete) {
@@ -27,7 +28,7 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
       return;
     }
     const check = participants.filter(
-      (participant) => participant.trim() === ""
+      (participant) => participant.name.trim() === ""
     );
 
     if (check.length > 0) {
@@ -35,14 +36,24 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
       return;
     }
 
+    const amount = items.reduce((acc, item) => acc + parseFloat(item.amount || 0), 0);
+    if (amount <= 0) {
+      alert("Total amount must be greater than zero.");
+      return;
+    }
+
     const data = {
       items: items.map((item) => ({
-        name: item.name,
-        price: parseFloat(item.price),
-        qty: parseInt(item.qty),
+        itemName: item.itemName,
+        itemPrice: parseFloat(item.itemPrice),
+        quantity: parseInt(item.quantity),
         amount: parseFloat(item.amount),
       })),
-      participants: participants.map((participant) => participant.trim()),
+      participants: participants.map((participant) => ({
+        id: participant.id,
+        name: participant.name.trim()
+      })),
+      amount: amount.toFixed(2),
     };
     setFormData(data);
     localStorage.setItem("formData", JSON.stringify(data));
@@ -60,8 +71,8 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
     setTimeout(() => {
       // Example response from API
       const apiItems = [
-        { name: "Pizza", price: "12.99", qty: "1", amount: "12.99" },
-        { name: "Soda", price: "2.50", qty: "2", amount: "5.00" },
+        { itemName: "Pizza", itemPrice: "12.99", quantity: "1", amount: "12.99" },
+        { itemName: "Soda", itemPrice: "2.50", quantity: "2", amount: "5.00" },
       ];
       setItems(apiItems);
       setLoading(false);
@@ -78,7 +89,7 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
   const handleAddItem = () => {
     setItems((items) => [
       ...items,
-      { name: "", price: "", qty: "", amount: "" },
+      { itemName: "", itemPrice: "", quantity: "", amount: "" },
     ]);
   };
 
@@ -90,11 +101,12 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
   };
 
   return (
-    <div className="flex flex-col items-center gap-8 py-8">
-      <h2 className="text-2xl font-bold mb-2 text-gray-800">
-        How would you like to add the bill?
+    <div className=" py-8 w-full">
+      <div className="flex flex-col items-center max-w-3xl mx-auto bg-gradient-to-br from-blue-50 via-white to-blue-100 p-10 rounded-3xl shadow-2xl border border-blue-200">
+      <h2 className="text-3xl font-extrabold mb-8 text-center text-blue-800">
+        How <span className="text-blue-500">would you like to</span> add bill.
       </h2>
-      <div className="flex gap-6 mb-4">
+      <div className="flex gap-6 mb-4 justify-center">
         <button
           className={`px-6 py-3 rounded-xl border</svg> shadow-sm font-medium transition-all duration-200 ${
             mode === "upload"
@@ -151,6 +163,7 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
       >
         Next Step
       </button>
+      </div>
     </div>
   );
 }

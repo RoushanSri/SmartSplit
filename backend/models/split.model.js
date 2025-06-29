@@ -14,8 +14,16 @@ const elementSchema = new mongoose.Schema({
     required: true,
     default: 1,
   },
+  amount: {
+    type: Number,
+    required: true,
+  },
   participants: [
     {
+      id:{
+        type: String,
+        required: true,
+      },
       name: {
         type: String,
         required: true,
@@ -48,6 +56,10 @@ const splitSchema = new mongoose.Schema(
     ],
     participants: [
       {
+        id: {
+          type: String,
+          required: true,
+        },
         name: {
           type: String,
           required: true,
