@@ -55,6 +55,34 @@ export const updateSplit = createAsyncThunk(
   }
 );
 
+export const createSplit = createAsyncThunk(
+  "split/createSplit",
+  async ({ event, description, amount, participants, items, owedAmount, ownedAmount, billImage }, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+      
+      const response = await axiosInstance.post("/split/addBill", {
+        event,
+        description,
+        amount,
+        participants,
+        items,
+        owedAmount,
+        ownedAmount,
+        billImage
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+)
+
 const initialState={
     splits: [],
     split:null,
@@ -108,6 +136,19 @@ const splitSlice = createSlice({
       .addCase(updateSplit.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
+      })
+      .addCase(createSplit.pending,(state)=>{
+        state.loading=true;
+        state.error=null
+      })
+      .addCase(createSplit.fulfilled,(state, action)=>{
+        state.loading=false;
+        state.splits.push(action.payload.data);
+        state.split = action.payload.data;
+      })
+      .addCase(createSplit.rejected,(state, action)=>{
+        state.loading=false;
+        state.error=action.payload.error;
       });
   },
 });

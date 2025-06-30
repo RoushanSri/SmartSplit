@@ -35,9 +35,9 @@ function SplitDetail() {
         }
         const toastId = toast.loading("Updating split...");
         
-        const owedAmount = participants[participants.length-1].contri - participants[participants.length-1].paid;
+        const owedAmount = participants[0].contri - participants[0].paid;
         const ownedAmount = participants
-            .slice(0, -1)
+            .slice(1)
             .reduce((acc, participant) => acc + (participant.contri - participant.paid), 0);
         
         dispatch(updateSplit({id, participants, owedAmount, ownedAmount}))
@@ -179,7 +179,7 @@ return (
             <div className="flex items-center justify-between border-t pt-4">
                 <span className="font-bold text-lg">Total Payment</span>
                 <span className="text-lg font-semibold text-gray-800">
-                    ${splitData?.amount.toFixed(2)}
+                    ₹{splitData?.amount.toFixed(2)}
                 </span>
             </div>
             {splitData?.billImage && !editMode && (

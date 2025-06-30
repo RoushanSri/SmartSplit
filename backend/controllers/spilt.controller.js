@@ -55,7 +55,7 @@ export const splitBill = asyncHandler(async(req, res)=>{
         participants,
         items,
         description: description,
-        amount,
+        amount: parseFloat(parseFloat(amount).toFixed(2)),
         owedAmount: owedAmount || 0,
         ownedAmount: ownedAmount || 0,
         billImage: billImage || ""
@@ -78,7 +78,7 @@ export const splitBill = asyncHandler(async(req, res)=>{
     user.totalSplitAmount += amount || 0;
     await user.save();
 
-    res.status(201).json({ success: true, message: "Bill split created successfully", data: splitData });
+    res.status(201).json({ success: true, message: "Bill split created successfully", data: split });
 })
 
 export const editBill = asyncHandler(async(req, res)=>{
@@ -109,8 +109,8 @@ export const editBill = asyncHandler(async(req, res)=>{
     if (!user) {
         throw new ResponseError(404, "User not found");
     }
-    user.pendingOwnedAmount += (ownedAmount || 0) - (split.ownedAmount || 0);
-    user.pendingOwedAmount += (owedAmount || 0) - (split.owedAmount || 0);
+    user.pendingOwnedAmount = parseFloat(parseFloat(user.pendingOwnedAmount + (ownedAmount || 0) - (split.ownedAmount || 0)).toFixed(2));
+    user.pendingOwedAmount = parseFloat(parseFloat(user.pendingOwedAmount + (owedAmount || 0) - (split.owedAmount || 0)).toFixed(2));
     user.save();
 
     const updatedSplit = await Split.findById(splitId);

@@ -75,9 +75,9 @@ function SplitCard({split}) {
                       </span>
                     </div>
                   ))}
-                  {split.moreItems!==0 && (<p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500">
                     +{split.moreItems} more items
-                  </p>)}
+                  </p>
                 </div>
     
                 {/* Action Button */}

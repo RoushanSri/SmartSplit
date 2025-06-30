@@ -45,7 +45,7 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
     const data = {
       items: items.map((item) => ({
         itemName: item.itemName,
-        itemPrice: parseFloat(item.itemPrice),
+        itemPrice: parseFloat(parseFloat(item.itemPrice).toFixed(2)),
         quantity: parseInt(item.quantity),
         amount: parseFloat(item.amount),
       })),
@@ -53,8 +53,9 @@ function SplitStep1({ setBillSplitStatus, formData, setFormData }) {
         id: participant.id,
         name: participant.name.trim()
       })),
-      amount: amount.toFixed(2),
+      amount: parseFloat(amount.toFixed(2)),
     };
+    
     setFormData(data);
     localStorage.setItem("formData", JSON.stringify(data));
     localStorage.setItem("step", 2);

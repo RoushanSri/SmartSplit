@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import SplitItems from "./SplitItems";
+import {useDispatch} from "react-redux"
+import { createSplit } from "../redux/slice/splitSlice";
+import {toast} from "react-hot-toast"
+import { useNavigate } from "react-router-dom";
+import { getProfile } from "../redux/slice/profileSlice";
 
 function SplitStep3({ setBillSplitStatus, formData, setFormData }) {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     const ownedAmount =
@@ -9,31 +17,36 @@ function SplitStep3({ setBillSplitStatus, formData, setFormData }) {
       (participants[0].contri - participants[0].paid);
     const owedAmount = participants[0].contri - participants[0].paid;
 
-    console.log(owedAmount, ownedAmount, participants);
-
     if (!event || !description) return alert("All fields should be filled.");
-
-    console.log(
-      "Event:",
-      event,
-      " Description:",
-      description,
-      " Amount:",
-      formData.amount,
-      "OwedAmount:",
-      owedAmount,
-      " OwnedAmount:",
-      ownedAmount,
-      " Participants:",
-      participants,
-      "Items:",
-      formData.items
-    );
-
-    localStorage.removeItem("step");
-    localStorage.removeItem("formData");
-    setBillSplitStatus(1);
-  };
+    const toastId = toast.loading("Creating split...");
+    dispatch(
+      createSplit({
+        event,
+        description,
+        participants,
+        owedAmount,
+        ownedAmount,
+        items:formData.items,
+        amount:formData.amount,
+        billImage:formData?.billImage||""
+      })).then((res)=>{
+        if(res.error){
+          toast.error(res.error.message, { id: toastId });
+        }
+        else{
+          toast.success("Bill split created successfully!", { id: toastId });
+          setFormData({});
+          setParticipants([]);
+          setEvent("");
+          setDescription("");
+          localStorage.removeItem("step");
+          localStorage.removeItem("formData");
+          dispatch(getProfile())
+          setBillSplitStatus(1);
+          navigate(("/u/split/" + res.payload.data._id), { replace: true });
+        }
+      })
+  }; 
 
   const [participants, setParticipants] = useState(
     formData?.participants || []

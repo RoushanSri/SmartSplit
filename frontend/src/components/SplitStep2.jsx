@@ -18,7 +18,7 @@ function SplitStep2({setBillSplitStatus, formData, setFormData}) {
               ...item,
               participants: item.participants.map(p => ({
           ...p,
-          contribution: share.toFixed(2)
+          contribution: parseFloat(share.toFixed(2))
               }))
             };
           }
@@ -27,7 +27,7 @@ function SplitStep2({setBillSplitStatus, formData, setFormData}) {
 
         const updatedParticipants = formData.participants.map(participant => ({
           ...participant,
-          contri: participantShares[participant.id] || 0,
+          contri: parseFloat(participantShares[participant.id].toFixed(2)) || 0,
           status:"pending",
           paid: 0
         }));
