@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SplitCard from "./SplitCard";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 function DashHistory() {
 
@@ -36,16 +37,22 @@ function DashHistory() {
   
   return (
     <div className="min-h-[50vh] w-full p-2 mt-4 rounded-2xl">
-      <h1 className="font-semibold text-2xl text-gray-900 bg-white p-2 rounded-xl">
-        Recent Splits
+      <h1 className="font-semibold text-2xl text-gray-900 bg-white p-3 rounded-xl flex gap-2">
+        <span className="w-2 bg-blue-950 rounded-2xl"></span> Recent Splits
       </h1>
       <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-6">
         {splitData.map((split, idx) => (
-            <SplitCard key={idx} split={split}/>
+          <motion.div
+            key={split.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.08, duration: 0.4 }}
+          >
+            <SplitCard split={split} />
+          </motion.div>
         ))}
       </div>
-    </div>
-  );
-}
+  </div>
+)}
 
 export default DashHistory;

@@ -6,6 +6,7 @@ import { useState } from 'react'
 import SplitCard from '../components/SplitCard.jsx'
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { FaFilter } from 'react-icons/fa'
+import { motion } from 'framer-motion'
 
 const PastEvents = () => {
   const dispatch = useDispatch()
@@ -82,7 +83,14 @@ const PastEvents = () => {
         
         <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 my-6">
           {filteredData.map((split, idx) => (
+            <motion.div
+            key={split.id}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: idx * 0.08, duration: 0.4 }}
+          >
             <SplitCard key={idx} split={split}/>
+          </motion.div>
         ))}
         </div>
       </div>

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearProfile, getProfile } from '../redux/slice/profileSlice';
 import { clearSplit } from '../redux/slice/splitSlice';
+import vid from '../assets/Animation - 1751523503507.webm'
 
 function AuthProtector({children}) {
 
@@ -36,10 +37,8 @@ function AuthProtector({children}) {
 
     return (
         <>
-            {isLoading ? <div className="loader">
-                <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
+            {isLoading ? <div className="loader w-full h-screen flex justify-center items-center">
+                    <video src={vid} autoPlay loop muted className='w-1/6'/>
             </div> : children}
         </>
     )

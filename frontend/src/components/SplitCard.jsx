@@ -2,10 +2,13 @@ import React from 'react'
 import { FaArrowRight } from 'react-icons/fa'
 import avatar from '../assets/noImage.webp'
 import { Link } from 'react-router-dom'
+import { easeInOut, motion } from 'framer-motion'
 
 function SplitCard({split}) {
   return (
-    <div key={split.id} className="bg-white rounded-2xl p-6 shadow-sm">
+    <motion.div key={split.id} className="bg-white rounded-2xl p-6 shadow-sm"
+    transition={{ duration: 0.5, ease:"easeInOut"}}
+    whileHover={{scale:1.05}}>
                 {/* Header */}
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center space-x-3">
@@ -81,11 +84,11 @@ function SplitCard({split}) {
                 </div>
     
                 {/* Action Button */}
-                <Link to={`/u/split/${split.id}`} className="w-full bg-slate-900 hover:bg-slate-800 cursor-pointer text-white py-3 px-4 rounded-xl font-medium transition-colors flex items-center justify-center space-x-2">
+                <Link to={`/u/split/${split.id}`} className="w-full bg-slate-900 hover:bg-slate-800 hover:scale-105 duration-200 cursor-pointer text-white py-3 px-4 rounded-xl font-medium flex items-center justify-center space-x-2">
                   <span>Split details</span>
                   <FaArrowRight className="h-4 w-4" />
                 </Link>
-              </div>
+              </motion.div>
   )
 }
 
