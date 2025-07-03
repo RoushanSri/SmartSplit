@@ -1,7 +1,10 @@
 import React from "react";
+import Navbar from "../components/Navbar";
 
 const TermsAndConditions = () => {
   return (
+    <>
+    <Navbar />  
     <section className="min-h-[92vh] flex flex-col mt-[8vh] justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 pt-6">
       <main className="flex-grow flex flex-col items-center max-w-4xl mx-auto w-full gap-4 py-8">
         <h1 className="text-center text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl leading-tight mb-2">
@@ -21,6 +24,7 @@ const TermsAndConditions = () => {
         </div>
       </main>
     </section>
+    </>
   );
 };
 

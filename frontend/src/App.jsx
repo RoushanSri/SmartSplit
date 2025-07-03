@@ -14,11 +14,12 @@ import PastEvents from "./pages/PastEvents";
 import DashHistory from "./components/DashHistory";
 import VerifyEmail from "./pages/VerifyEmail";
 import SplitDetail from "./pages/SplitDetail";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const App = () => {
   return (
     <>
-
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -37,6 +38,9 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/verify-email" element={<VerifyEmail/>}/>
+        <Route path="/tc" element={<TermsAndConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/contactUs" element={<ContactUs/>} />
 
         <Route path="/u/" element={<AuthProtector>
           <MainLayout />

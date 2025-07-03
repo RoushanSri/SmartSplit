@@ -20,22 +20,22 @@ const Navbar = () => {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-8">
               <a
-                href="#home"
+                href="/"
                 className="text-gray-700 hover:text-[#181c5d] px-3 py-2 text-sm font-medium"
               >
                 Home
-              </a>
-              <a
-                href="#about"
-                className="text-gray-700 hover:text-[#181c5d] px-3 py-2 text-sm font-medium"
-              >
-                About Us
               </a>
               <a
                 href="#features"
                 className="text-gray-700 hover:text-[#181c5d] px-3 py-2 text-sm font-medium"
               >
                 Features
+              </a>
+              <a
+                href="#about"
+                className="text-gray-700 hover:text-[#181c5d] px-3 py-2 text-sm font-medium"
+              >
+                About Us
               </a>
               <Link
                 to="/login"
@@ -66,22 +66,22 @@ const Navbar = () => {
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-gray-100">
               <a
-                href="#home"
+                href="/"
                 className="block text-gray-700 hover:text-[#181c5d] px-3 py-2 text-base font-medium"
               >
                 Home
-              </a>
-              <a
-                href="#about"
-                className="block text-gray-700 hover:text-[#181c5d] px-3 py-2 text-base font-medium"
-              >
-                About Us
               </a>
               <a
                 href="#features"
                 className="block text-gray-700 hover:text-[#181c5d] px-3 py-2 text-base font-medium"
               >
                 Features
+              </a>
+              <a
+                href="#about"
+                className="block text-gray-700 hover:text-[#181c5d] px-3 py-2 text-base font-medium"
+              >
+                About Us
               </a>
               <Link
                 to="/login"

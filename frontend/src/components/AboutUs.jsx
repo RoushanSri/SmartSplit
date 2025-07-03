@@ -2,8 +2,8 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <section className="min-h-[60vh] flex flex-col justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 py-8">
-      <main className="flex flex-col items-center max-w-4xl mx-auto w-full gap-4">
+    <section id="about" className="min-h-[75vh] flex flex-col justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 py-8">
+      <main className="flex flex-col items-center max-w-6xl mx-auto w-full gap-4">
         <h2 className="text-center text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl leading-tight mb-2">
           About SmartSplit
         </h2>
