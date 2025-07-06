@@ -2,8 +2,6 @@ import React from "react";
 import {
   FaQrcode,
   FaCalculator,
-  FaUsers,
-  FaCreditCard,
   FaBolt,
   FaReceipt,
 } from "react-icons/fa";
@@ -37,21 +35,21 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-16 bg-gray-50">
-      <div className="max-w-7xl flex items-center flex-col mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+    <section id="features" className="min-h-[60vh] flex flex-col justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 py-8">
+      <main className="flex flex-col items-center max-w-5xl mx-auto w-full gap-4">
+        <div className="text-center mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
             Powerful Features
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-lg text-gray-600">
             Everything you need for seamless bill splitting
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 w-[75%] gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-2 w-full gap-6">
           {features.map(({ icon, title, desc, bg }, i) => (
             <div
               key={i}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow"
+              className="bg-white/80 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow"
             >
               <div
                 className={`${bg} w-12 h-12 rounded-lg flex items-center justify-center mb-4`}
@@ -65,7 +63,7 @@ const Features = () => {
             </div>
           ))}
         </div>
-      </div>
+      </main>
     </section>
   );
 };

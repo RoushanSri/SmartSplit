@@ -2,13 +2,13 @@ import React from "react";
 
 const AboutUs = () => {
   return (
-    <section id="about" className="py-16 bg-white">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-8">
+    <section id="about" className="min-h-[75vh] flex flex-col justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 py-8">
+      <main className="flex flex-col items-center max-w-6xl mx-auto w-full gap-4">
+        <h2 className="text-center text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl leading-tight mb-2">
           About SmartSplit
         </h2>
-        <div className="text-lg text-gray-900 leading-relaxed space-y-6">
-          <p>
+        <div className="bg-white/80 rounded-2xl shadow-lg p-6 w-full text-gray-900 text-lg leading-relaxed">
+          <p className="mb-4">
             While Splitwise is excellent for ongoing expense tracking between
             roommates and regular groups,
             <strong className="text-[#181c5d]">
@@ -17,7 +17,7 @@ const AboutUs = () => {
             </strong>
             and quick restaurant or grocery bill splitting.
           </p>
-          <p>
+          <p className="mb-4">
             Our focus is on{" "}
             <strong className="text-[#181c5d]">speed and simplicity</strong>.
             Instead of manually entering each item, SmartSplit uses advanced OCR
@@ -35,7 +35,7 @@ const AboutUs = () => {
             without the overhead of ongoing expense management.
           </p>
         </div>
-      </div>
+      </main>
     </section>
   );
 };

@@ -1,45 +1,49 @@
 import React from "react";
-import { FaCamera, FaReceipt } from "react-icons/fa";
-import logo from "../assets/logo.jpg";
-
 const LandingSection = () => {
   return (
     <section
       id="home"
-      className="pt-20 pb-16 bg-gradient-to-br from-blue-50 to-indigo-100"
+      className="min-h-[92vh] flex flex-col mt-[8vh] justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 pt-6 h-full "
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              From receipt to split in{" "}
-              <span className="text-[#181c5d]">under a minute.</span>
-            </h1>
-            <p className="mt-6 text-xl text-gray-600 leading-relaxed">
-              SmartSplit lets you snap a receipt, extract items, assign people,
-              and settle via UPI in seconds.
-            </p>
-            <button className="mt-8 bg-[#181c5d] text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-[#181c5d] transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Try It Now
-            </button>
-          </div>
-          <div className="flex justify-center lg:justify-end">
-            <div className="relative">
-              <img
-                src={logo}
-                alt="Receipt scanning mockup"
-                className="rounded-full shadow-2xl"
+      <main className="flex-grow flex flex-col items-center max-w-7xl mx-auto w-full gap-4">
+        <h1 className="text-center text-gray-900 font-bold text-3xl sm:text-4xl md:text-5xl max-w-2xl leading-tight">
+          Split bills in seconds with{" "}
+          <span className="text-indigo-600">SmartSplit</span>
+        </h1>
+        <p className="text-center text-gray-600 max-w-md text-sm sm:text-base leading-relaxed">
+          Upload or snap a photo of your receipt, let SmartSplit extract items,
+          assign who pays for what, and settle instantly. Perfect for friends,
+          roommates, and group outings.
+        </p>
+        <button
+          className="flex items-center space-x-2 border border-indigo-600 text-indigo-600 text-xs rounded-full px-4 pr-1.5 py-1.5 hover:bg-indigo-50 transition"
+          type="button"
+        >
+          <span>Snap, Split, Settle.</span>
+          <span className="flex items-center justify-center size-6 p-1 rounded-full bg-indigo-600">
+            <svg
+              width="14"
+              height="11"
+              viewBox="0 0 16 13"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 6.5h14M9.5 1 15 6.5 9.5 12"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
-              <div className="absolute -top-4 -left-4 bg-white p-3 rounded-full shadow-lg">
-                <FaCamera className="h-8 w-8 text-[#181c5d]" />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-white p-3 rounded-full shadow-lg">
-                <FaReceipt className="h-8 w-8 text-[#181c5d]" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+            </svg>
+          </span>
+        </button>
+        <img
+          className="rounded-[50px] h-80 w-full object-cover max-w-5xl mt-8"
+          src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1074&auto=format&fit=crop"
+          alt="People splitting a bill at a restaurant"
+        />
+      </main>
     </section>
   );
 };
