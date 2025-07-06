@@ -16,10 +16,10 @@ function ContactUs() {
 
   return (
     <section className="min-h-[92vh] flex flex-col justify-center bg-gradient-to-b px-3 sm:px-10 overflow-hidden from-blue-50 via-[#fffbee] to-indigo-100 pt-6">
-      <main className="flex flex-col items-center justify-center w-full max-w-lg mx-auto">
+      <main className="flex flex-col items-center justify-center w-full max-w-[50%] mx-auto">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col items-center text-base text-[#181c5d] bg-white/80 backdrop-blur-xl border border-indigo-200 rounded-3xl p-10 shadow-2xl w-full"
+          className="flex flex-col items-center text-base text-[#181c5d] bg-white/80 backdrop-blur-xl border border-indigo-200 rounded-3xl p-10 shadow-2xl transition-all hover:shadow-lg w-full"
         >
           <p className="text-xs bg-[#181c5d]/10 text-[#181c5d] font-semibold px-4 py-1 rounded-full tracking-wide mb-2">
             Contact SmartSplit Team
